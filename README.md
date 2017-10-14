@@ -217,7 +217,7 @@ let frame = CGRect(x: 40, y: 60, width: 200, height: 400)
 ```
 > 需要注意闭包的循环引用, 其中使用self时,要使用weak或者unowned修饰;
 
-具体实现可以参看源文件, 代码量不是很大, 主要只有文件有三四百行代码, 或者参看博客[[Swift]使用UITableView+UICollectionView实现二维选择(四个方向滑动)](http://www.jianshu.com/p/9cb679ee2d56)
+具体实现可以参看源文件, 代码量不是很大, 主要文件只有三四百行代码, 或者参看博客[[Swift]使用UITableView+UICollectionView实现二维选择(四个方向滑动)](http://www.jianshu.com/p/9cb679ee2d56)
 
 #### 如有帮助, 还请右上角 Star 或者 Fork
 # (完)
