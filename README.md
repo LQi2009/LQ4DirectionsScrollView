@@ -5,7 +5,7 @@ UITableView + UICollectionView 实现的二维滑动选择器, 可以上下左�
 
 
 # 说明
-控件的上下滑动效果是使用UITableView来实现, 左右滑动是在tableViewCell中嵌套UICollectionView来实现的; 控件整体继承自UIView, 可以添加到任意的视图, 只需要设置好frame和dataSource即可, 这里主要说明其API方法和使用, 具体的实现可以阅读我这篇文章[]().主要是 LQ4DirectionsScrollView 文件夹下的两个文件: LQ4DirectionsScrollView.swift / LQ4DirectionTableViewCell.swift, 但这些只是实现了交互, 数据显示部分, 需要根据具体的业务场景来补偿, 但是有些需要注意的地方, 下面会讲到.
+控件的上下滑动效果是使用UITableView来实现, 左右滑动是在tableViewCell中嵌套UICollectionView来实现的; 控件整体继承自UIView, 可以添加到任意的视图, 只需要设置好frame和dataSource即可, 这里主要说明其API方法和使用, 具体的实现可以阅读我[这篇文章](http://www.jianshu.com/p/9cb679ee2d56).主要是 LQ4DirectionsScrollView 文件夹下的两个文件: LQ4DirectionsScrollView.swift / LQ4DirectionTableViewCell.swift, 但这些只是实现了交互, 数据显示部分, 需要根据具体的业务场景来补偿, 但是有些需要注意的地方, 下面会讲到.
 
 对外属性主要有这么几个:
 ```
@@ -217,7 +217,7 @@ let frame = CGRect(x: 40, y: 60, width: 200, height: 400)
 ```
 > 需要注意闭包的循环引用, 其中使用self时,要使用weak或者unowned修饰;
 
-具体实现可以参看源文件, 代码量不是很大, 主要只有文件有三四百行代码, 或者参看博客[]()
+具体实现可以参看源文件, 代码量不是很大, 主要只有文件有三四百行代码, 或者参看博客[[Swift]使用UITableView+UICollectionView实现二维选择(四个方向滑动)](http://www.jianshu.com/p/9cb679ee2d56)
 
 #### 如有帮助, 还请右上角 Star 或者 Fork
 # (完)
