@@ -69,6 +69,26 @@ self.view.backgroundColor = UIColor.white
         self.present(alert, animated: true, completion: nil)
     }
     
+    func create2() {
+        
+        let frame = CGRect(x: 40, y: 60, width: 200, height: 400)
+        
+        let scroll = LQ4DirectionsScrollView<LQ4DirectionsModel>(frame: frame).didScrolled { (model) in
+            
+            }.didSelected { (model) in
+                
+        }
+        
+        scroll.dataSource = dataSource
+        
+        scroll.backgroundColor = UIColor.brown
+        //        scroll.edgeInset = UIEdgeInsets(top: 30, left: 40, bottom: 40, right: 50)
+        let image = UIImage(named: "7.jpg")
+        
+        scroll.backgroundView = UIImageView(image: image)
+        self.view.addSubview(scroll)
+    }
+    
     func create1() {
         
         let frame = CGRect(x: 40, y: 60, width: 200, height: 400)

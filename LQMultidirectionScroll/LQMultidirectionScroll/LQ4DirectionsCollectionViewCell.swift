@@ -23,7 +23,7 @@ class LQ4DirectionsCollectionViewCell<T>: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadData(_ model: T) {
+    func configData(_ model: T) {
         let md = model as! LQ4DirectionsModel
         
 //        self.backgroundColor = md.color
@@ -42,5 +42,4 @@ class LQ4DirectionsCollectionViewCell<T>: UICollectionViewCell {
         super.layoutSubviews()
         
     }
-    
 }

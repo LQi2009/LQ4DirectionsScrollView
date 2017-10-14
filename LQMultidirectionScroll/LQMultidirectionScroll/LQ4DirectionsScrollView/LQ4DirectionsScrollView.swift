@@ -16,41 +16,31 @@ class LQ4DirectionsScrollView<T>: UIView, UITableViewDelegate, UITableViewDataSo
     var edgeInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
     /// 有效滑动距离, 值越小, 滑动越灵敏
     var effectiveSlidingDistance: CGFloat = 30.0
-    
-    private var fourDirTable: UITableView!
     var backgroundView: UIView? {
         didSet{
             fourDirTable.backgroundView = backgroundView
         }
     }
     
-    private var fourDirWindowWidth: CGFloat = 0
-    private var fourDirWindowHeight: CGFloat = 0
+    private var fourDirTable: UITableView!
     private var beginOffset: CGFloat = 0
-    private var beginDrag: Bool = false
+    private var isBeginDrag: Bool = false
     private var currentSection: Int = 0
     private var currentIndex: Int = 0
     private var didSelectedHandle: LQ4DirectionsScrollViewHandle?
     private var didScrolledHandle: LQ4DirectionsScrollViewHandle?
     
-    @discardableResult
-    func didSelected(_ handle: @escaping LQ4DirectionsScrollViewHandle) -> LQ4DirectionsScrollView {
-        
-        didSelectedHandle = handle
-        return self
-    }
-    
-    @discardableResult
-    func didScrolled(_ handle: @escaping LQ4DirectionsScrollViewHandle) -> LQ4DirectionsScrollView {
-        
-        didScrolledHandle = handle
-        return self
-    }
-    
     deinit {
         print("LQ4DirectionsScrollView deinit")
     }
     
+    /// 初始化方法
+    ///
+    /// - Parameters:
+    ///   - datas: 数据源
+    ///   - frame: frame
+    ///   - didSelected: 选择回调
+    ///   - didScrolled: 滚动回调
     init(withDatas datas: [[T]], frame: CGRect, didSelected: LQ4DirectionsScrollViewHandle?, didScrolled: LQ4DirectionsScrollViewHandle?) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
@@ -64,9 +54,6 @@ class LQ4DirectionsScrollView<T>: UIView, UITableViewDelegate, UITableViewDataSo
         didSelectedHandle = didSelected
         self.frame = frame
         
-        fourDirWindowWidth = self.frame.width
-        fourDirWindowHeight = self.frame.height
-        
         setupMainView()
     }
     
@@ -74,14 +61,26 @@ class LQ4DirectionsScrollView<T>: UIView, UITableViewDelegate, UITableViewDataSo
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
-        fourDirWindowWidth = self.frame.width
-        fourDirWindowHeight = self.frame.height
         
         setupMainView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @discardableResult
+    func didSelected(_ handle: @escaping LQ4DirectionsScrollViewHandle) -> LQ4DirectionsScrollView {
+        
+        didSelectedHandle = handle
+        return self
+    }
+    
+    @discardableResult
+    func didScrolled(_ handle: @escaping LQ4DirectionsScrollViewHandle) -> LQ4DirectionsScrollView {
+        
+        didScrolledHandle = handle
+        return self
     }
     
     private func setupMainView() {
@@ -122,7 +121,7 @@ class LQ4DirectionsScrollView<T>: UIView, UITableViewDelegate, UITableViewDataSo
         cell.edgeInset = edgeInset
         cell.currentIndex = currentIndex
         cell.effectiveSlidingDistance = effectiveSlidingDistance
-        if let bgdView = backgroundView {
+        if backgroundView != nil {
             cell.backgroundColor = UIColor.clear
         } else {
             cell.backgroundColor = self.backgroundColor
@@ -149,22 +148,22 @@ class LQ4DirectionsScrollView<T>: UIView, UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return fourDirWindowHeight
+        return self.frame.height
     }
     
 //   MARK: - UIScrollViewDelegate
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         
-        if beginDrag {
+        if isBeginDrag {
             return
         }
-        beginDrag = true
+        isBeginDrag = true
         beginOffset = scrollView.contentOffset.y
     }
     
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         
-        if beginDrag {
+        if isBeginDrag {
             // 计算滑动幅度
             let currentOffset = scrollView.contentOffset.y - beginOffset
             //向上滑动
@@ -190,8 +189,8 @@ class LQ4DirectionsScrollView<T>: UIView, UITableViewDelegate, UITableViewDataSo
         let table = scrollView as! UITableView
         table.scrollToRow(at: indexPath, at: .middle, animated: true)
         
-        if beginDrag {
-            beginDrag = false
+        if isBeginDrag {
+            isBeginDrag = false
             if let handle = didScrolledHandle {
                 handle(model)
             }

@@ -21,7 +21,7 @@ class LQ4DirectionTableViewCell<T>: UITableViewCell, UICollectionViewDelegate, U
     private var didScrolledHandle: LQ4DirectionTableViewCellActionHandle?
     private var didSelectedHandle: LQ4DirectionTableViewCellActionHandle?
     private var beginOffset: CGFloat = 0
-    private var isAlreadyDrag: Bool = false
+    private var isBeginDrag: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -90,7 +90,7 @@ class LQ4DirectionTableViewCell<T>: UITableViewCell, UICollectionViewDelegate, U
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LQ4DirectionsCellReuseIdentifier", for: indexPath) as! LQ4CollectionCell<T>
         
         let model = dataSource[indexPath.section]
-        cell.loadData(model)
+        cell.configData(model)
         return cell
     }
     
@@ -131,10 +131,10 @@ class LQ4DirectionTableViewCell<T>: UITableViewCell, UICollectionViewDelegate, U
     //MARK: - UIScrollViewDelegate
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         
-        if isAlreadyDrag {
+        if isBeginDrag {
             return
         }
-        isAlreadyDrag = true
+        isBeginDrag = true
         
         // 距离开始的offset, 用于计算滑动幅度
         beginOffset = scrollView.contentOffset.x
@@ -142,7 +142,7 @@ class LQ4DirectionTableViewCell<T>: UITableViewCell, UICollectionViewDelegate, U
     
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         
-        if isAlreadyDrag {
+        if isBeginDrag {
             
             let currentOffset = scrollView.contentOffset.x - beginOffset
             //向左滑动
@@ -166,14 +166,11 @@ class LQ4DirectionTableViewCell<T>: UITableViewCell, UICollectionViewDelegate, U
         let collection = scrollView as! UICollectionView
         collection.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
-        if isAlreadyDrag {
-            isAlreadyDrag = false
+        if isBeginDrag {
+            isBeginDrag = false
             if let handle = didScrolledHandle {
                 handle(currentIndex)
             }
         }
     }
 }
-
-
-
