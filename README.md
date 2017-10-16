@@ -219,5 +219,15 @@ let frame = CGRect(x: 40, y: 60, width: 200, height: 400)
 
 具体实现可以参看源文件, 代码量不是很大, 主要文件只有三四百行代码, 或者参看博客[[Swift]使用UITableView+UICollectionView实现二维选择(四个方向滑动)](http://www.jianshu.com/p/9cb679ee2d56)
 
+##### 对于不习惯泛型操作的朋友, 可以使用里面的非泛型版本: LQ4DirectionsScrollView_typealias 
+其使用和一般控件无异, 只是定义好数据模型和UICollectionViewCell的时候, 要关联一下类型:
+```
+/// 将这里解注释, 后者换成你\自定义的UICollectionViewCell
+typealias LQ4CollectionCell = LQ4DirectionsCollectionViewCell
+
+/// 将这里解注释, 后者换成自定义的model
+typealias LQ4Model = LQ4DirectionsModel
+```
+
 #### 如有帮助, 还请右上角 Star 或者 Fork
 # (完)
