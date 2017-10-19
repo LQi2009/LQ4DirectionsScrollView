@@ -22,6 +22,20 @@ class LQ4DirectionsScrollView<T>: UIView, UITableViewDelegate, UITableViewDataSo
         }
     }
     
+    /// 横向初始索引位置
+    var beginHorizontalIndex: Int = 0 {
+        didSet{
+            currentIndex = beginHorizontalIndex
+        }
+    }
+    
+    /// 竖向初始索引位置
+    var beginVerticalIndex: Int = 0 {
+        didSet{
+            currentSection = beginVerticalIndex
+        }
+    }
+    
     private var fourDirTable: UITableView!
     private var beginOffset: CGFloat = 0
     private var isBeginDrag: Bool = false

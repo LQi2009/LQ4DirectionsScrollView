@@ -60,6 +60,9 @@ self.view.backgroundColor = UIColor.white
         
         scroll.backgroundView = UIImageView(image: image)
         self.view.addSubview(scroll)
+        
+        scroll.beginHorizontalIndex = 3
+        scroll.beginVerticalIndex = 2
     }
 
     func alert(_ text: String) {

@@ -9,10 +9,10 @@
 import UIKit
 
 
-/// 将这里解注释, 后者换成你\自定义的UICollectionViewCell
+///// 将这里解注释, 后者换成你\自定义的UICollectionViewCell
 //typealias LQ4CollectionCell = LQ4DirectionsCollectionViewCell
-
-/// 将这里解注释, 后者换成自定义的model
+//
+///// 将这里解注释, 后者换成自定义的model
 //typealias LQ4Model = LQ4DirectionsModel
 
 class LQ4DirectionsScrollView: UIView, UITableViewDelegate, UITableViewDataSource {
@@ -26,6 +26,20 @@ class LQ4DirectionsScrollView: UIView, UITableViewDelegate, UITableViewDataSourc
     var backgroundView: UIView? {
         didSet{
             fourDirTable.backgroundView = backgroundView
+        }
+    }
+    
+    /// 横向初始索引位置
+    var beginHorizontalIndex: Int = 0 {
+        didSet{
+            currentIndex = beginHorizontalIndex
+        }
+    }
+    
+    /// 竖向初始索引位置
+    var beginVerticalIndex: Int = 0 {
+        didSet{
+            currentSection = beginVerticalIndex
         }
     }
     
